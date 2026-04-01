@@ -4,7 +4,6 @@
 // Input: nums = [3,2,3]
 // Output: 3
 
-
 // 技巧Boyer-Moore Voting Algorithm
 class Solution {
 public:
@@ -23,5 +22,23 @@ public:
             }
         }
         return candidate;
+    }
+};
+
+// 另一種寫法
+class Solution {
+public:
+    int majorityElement(vector<int>& nums) {
+        unordered_map<int, int> counts;
+        int n = nums.size();
+        
+        for (int num : nums) {
+            counts[num]++;
+            // 只要過半了，就可以直接回傳
+            if (counts[num] > n / 2) {
+                return num;
+            }
+        }
+        return -1; // 理論上不會執行到這
     }
 };
