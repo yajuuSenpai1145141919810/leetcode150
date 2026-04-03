@@ -3,10 +3,11 @@
 class Solution {
 public:
     int removeDuplicates(vector<int>& nums) {
+        if (nums.size() <= 2) return nums.size();
         // 一樣用雙指標
-        int slow=1;
+        int slow=2;
         for(int fast=2;fast<nums.size();fast++){
-            if(nums[fast]!=nums[fast-2]){
+            if(nums[fast]!=nums[slow-2]){
                 nums[slow]=nums[fast];
                 slow++;
             }
