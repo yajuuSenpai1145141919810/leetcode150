@@ -15,7 +15,6 @@ private:
     list<pair<int,int>> cachelist;
 
     unordered_map<int,list<pair<int,int>>::iterator> map;
-
 public:
     LRUCache(int capacity) {
         cap=capacity;        
@@ -30,7 +29,7 @@ public:
         cachelist.splice(cachelist.begin(),cachelist,map[key]); 
 
         // 回傳書裡面的內容
-        return map[key]->second; // second 是 std::pair 的語法  -> 是 iterator（或指標）用來存取成員的語法。
+        return map[key]->second; 
 
     }
 
@@ -40,7 +39,7 @@ public:
     // 把舊書拿出來，換上新的內容（Value），然後把它移到 書架的第一格
     if(map.find(key)!=map.end()){
         map[key]->second=value;
-        cachelist.splice(cachelist.begin(),cachelist,mpa[key]);
+        cachelist.splice(cachelist.begin(),cachelist,map[key]);
         return ;
     }
 
@@ -48,7 +47,16 @@ public:
     // 檢查書架滿了沒？ 如果滿了，把書架「最後面」那本最久沒翻的書丟掉，同時把目錄（Map）裡的紀錄也刪掉。
     // 把新書放最前面。
     // 在目錄（Map）記下這本書的位置。
-
+    if(cachelist.size()==cap){
+        // 查出最後一本書的key
+        int last=cachelist.back().first;
+        // 從目錄（Map）裡把這本書的紀錄刪掉
+        map.erase(last);
+        // // 從書架（List）把最後一本書丟掉
+        cachelist.pop_back();
+    }
+    cachelist.push_front({key,value});
+    map[key]=cachelist.begin();
         
     }
 };
