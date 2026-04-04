@@ -27,17 +27,22 @@ public:
         if(map.find(key)==map.end()) return -1;
 
         // splice 的語法：(搬去哪, 從哪個 list 搬, 搬哪一個節點)
-        cachelist.splice(cachelist.begin(),cachelist,map[key]);
+        cachelist.splice(cachelist.begin(),cachelist,map[key]); 
 
         // 回傳書裡面的內容
-        return map[key]->second;
+        return map[key]->second; // second 是 std::pair 的語法  -> 是 iterator（或指標）用來存取成員的語法。
 
     }
-    // put 就是「更新並搬到起點」或「淘汰終點並插入起點」。
+
+    // put 就是把書本放到書架上的第一格
     void put(int key, int value) {
     // 情況 A：這本書已經在書架上 (Update)
-    // 更新書的內容（Value）。
-    // 因為剛動過它，所以把它搬到書架最前面。
+    // 把舊書拿出來，換上新的內容（Value），然後把它移到 書架的第一格
+    if(map.find(key)!=map.end()){
+        map[key]->second=value;
+        cachelist.splice(cachelist.begin(),cachelist,mpa[key]);
+        return ;
+    }
 
     // 情況 B：這是一本新書 (Insert)
     // 檢查書架滿了沒？ 如果滿了，把書架「最後面」那本最久沒翻的書丟掉，同時把目錄（Map）裡的紀錄也刪掉。
