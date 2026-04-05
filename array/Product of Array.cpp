@@ -6,6 +6,37 @@
 // Input: nums = [1,2,3,4]
 // Output: [24,12,8,6]
 
+// 最標準的寫法
+class Solution {
+public:
+    vector<int> productExceptSelf(vector<int>& nums) {
+        // Prefix & Suffix Products (前綴與後綴乘積)
+        // 像是[1,2,3,4] 3那格就是左邊1*2  再去乘右邊的4 簡單啦
+        // 先把左邊的乘起來 第二輪一邊算右邊的累積，一邊直接乘進去
+        int n=nums.size();
+        vector<int> answer(n);
+
+        // 不用去算幾個0!
+        int count=0;
+        for(int x:nums){
+            if(x==0) count++;
+        }
+
+        int left=1; 
+        for(int i=0;i<n;i++){
+            answer[i]=left; // 是對answer做
+            left*=nums[i];
+        }
+
+        int right=1;
+        for(int j=n-1;j>=0;j--){
+            answer[j]*=right;
+            right*=nums[j];
+        }
+        return answer;
+    }
+};
+
 // 我自己先寫用除法的
 class Solution {
 public:
