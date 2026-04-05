@@ -7,3 +7,17 @@
 
 
 // 只要 total_sum(總油量 - 總耗油) >= 0，代表油一定夠跑完一圈，絕對有解。
+
+
+class Solution {
+public:
+    int canCompleteCircuit(vector<int>& gas, vector<int>& cost) {
+        // 如果說 從a->b->c 會不夠了 那b->c也會不夠,因為從a開始好歹會有剩下油
+        // 只要 total_sum(總油量 - 總耗油) >= 0，代表油一定夠跑完一圈，絕對有解。
+
+        // current_sum (當前剩餘油量)：
+        // 我們從 index 0 開始走，累加 gas[i] - cost[i]。
+        // 一旦 current_sum < 0：代表目前的起點行不通。 
+        // reedy 決策：把起點設為 i + 1，並把 current_sum 歸零重新計算。
+    }
+};
