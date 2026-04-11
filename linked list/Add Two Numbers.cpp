@@ -6,6 +6,10 @@
 // 1. 「一掛」：先掛好鉤子 (Dummy Node)
 // 2. 「二加」：把值吸過來，算完塞進去
 // 3. 「三走」：大家一起往前踏一步
+
+// Input: l1 = [2,4,3], l2 = [5,6,4]
+// Output: [7,0,8]
+// Explanation: 342 + 465 = 807.
 class Solution {
 public:
     ListNode* addTwoNumbers(ListNode* l1, ListNode* l2) {
